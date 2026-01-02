@@ -7,7 +7,7 @@ library(network)
 library(parallel)
 library(doRNG)
 library(sf)
-source('/Users/shurenhe/Documents/GitHub/GS-BART/R/graph_gen_fun.R')
+source('R/graph_gen_fun.R')
 
 genVMesh <- function(sf_bnd, coords_ref = NULL, n_ref = 100, graph = TRUE, max_retry = 10, ...) {
   

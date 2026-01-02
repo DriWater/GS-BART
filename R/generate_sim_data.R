@@ -1,4 +1,4 @@
-source('/Users/shurenhe/Documents/GitHub/GS-BART/R/Ushape_GenData_fun.R')
+source('R/Ushape_GenData_fun.R')
 
 library(caret)
 
@@ -36,12 +36,12 @@ X = x[in_train,]; X_ho = x[-in_train,]
 n_train = nrow(X); n_test = nrow(X_ho)
 
 Graphs = lapply(1:n_rounds, function(x){Generate_GraphCandidates_graphbin(X = X, X_ho = X_ho, n_bin = 100, chain.type = 'regular')})
-sim_Friedman = list(X = X, X_ho = X_ho, Graphs = Graphs, f_true = f[in_train], f_ho_true = f[-in_train])
+sim_Friedman = list(X = X, X_ho = X_ho, Graphs = Graphs, f_true = Ey[in_train], f_ho_true = Ey[-in_train])
 sim_Friedman[['graphs_weight']] = rep(0.2, 5)
 
 
 ## Generate Torus Example
-load("~/Downloads/code/test_code/TorusSim.Rdata")
+load("data/TorusSim.Rdata")
 Graphs= lapply(InputGraphs, function(x) {
   lapply(x, function(y){
     list(root = y$root,
@@ -51,23 +51,13 @@ Graphs= lapply(InputGraphs, function(x) {
          tr2mesh = y$tr2mesh)
   }) 
 })
+sim_Torus = sim
 sim_Torus$Graphs = Graphs
 sim_Torus[['graphs_weight']] = c(rep((1-min(6/8, 0.85))/7, 7), rep(min(6/8, 0.85)/6, 6))
 sim_Torus$train_X = NULL; sim_Torus$test_X = NULL
 
-save(sim_Ushape, sim_Friedman, sim_Torus, file = "/Users/shurenhe/Documents/GitHub/GS-BART/data/sim_input.RData", compress = "bzip2")
 
-load('/Users/shurenhe/Documents/GitHub/GS-BART/data/USFlood.Rdata')
-Graphs = InputGraphs
-remove(InputGraphs)
 
-save(X, X_ho, Y, Y_ho, Graphs, graphs_weight, file = "/Users/shurenhe/Documents/GitHub/GS-BART/data/USFlood.Rdata", compress = "bzip2")
-
-rm(list=ls())
-load('~/Downloads/code/test_code/AirPollution.Rdata')
-Graphs = InputGraphs
-remove(InputGraphs)
-
-save(X, X_ho, Y_bin, Y_bin_ho, Graphs, graphs_weight, file = "/Users/shurenhe/Documents/GitHub/GS-BART/data/USFlood.Rdata", compress = "bzip2")
+save(sim_Ushape, sim_Friedman, sim_Torus, file = "data/sim_input.RData", compress = "bzip2")
 
 
