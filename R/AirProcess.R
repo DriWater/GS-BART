@@ -15,23 +15,21 @@ InputGraphs = lapply(Graphs, function(x) {
                 children = y$children,
                 mesh2tr= igraph::vertex.attributes(y$g)$mesh2tr,
                 mesh2ho = igraph::vertex.attributes(y$g)$mesh2ho,
-                tr2mesh = igraph::graph.attributes(y$g)$tr2mesh,
-                ho2mesh = igraph::graph.attributes(y$g)$ho2mesh))
+                tr2mesh = igraph::graph.attributes(y$g)$tr2mesh))
   }) 
 })
 # Reduce every index by 1 to make everything 0 indexed
-InputGraphs = lapply(InputGraphs, function(x) {
+Graphs = lapply(InputGraphs, function(x) {
   lapply(x, function(y) {
     list(root = y$root - 1,
          children = unname(lapply(y$children, function(z){unname(z) - 1})),
          mesh2tr = unname(lapply(y$mesh2tr, function(z){unname(z) - 1})),
          mesh2ho = unname(lapply(y$mesh2ho, function(z){unname(z) - 1})),
-         tr2mesh = unname(y$tr2mesh - 1),
-         ho2mesh = unname(y$ho2mesh - 1))
+         tr2mesh = unname(y$tr2mesh - 1))
   }) 
 })
 
-n_rounds = M = 100
+n_rounds = M = 50
 n_ost=7
 n_train = length(Y_bin)
 n_test = length(Y_bin_ho)
@@ -60,7 +58,8 @@ graphs_weight = c(rep((1-min(p / (p + 2), 0.85))/n_ost,n_ost), rep(min(p / (p + 
 
 modelpar=c(sigmasq = (3/(2*sqrt(n_rounds)))^2, tausq = (6/(2*sqrt(n_rounds)))^2)
 
-save(Y_bin, Y_bin_ho, hyperpar, modelpar, graphs_weight, InputGraphs, file = "~/Downloads/code/test_code/AirPollution2.Rdata")
+save(Y_bin, Y_bin_ho, in_train, hyperpar, modelpar, graphs_weight,
+     Graphs, file = "/Users/shurenhe/Documents/GitHub/GS-BART/data/USAir.Rdata", compress = "bzip2")
 
 load("~/Downloads/GSBart_rebuttal/Airpollution/USAir.Rdata")
 
@@ -73,7 +72,7 @@ y_hat_tmp <- y_hat[-remove.id]
 print(mean(y_hat_tmp == Y_bin_ho_tmp))
 
 library(G2SBart)
-load('~/Downloads/code/test_code/AirPollution.Rdata')
+load('~/Downloads/code/test_code/AirPollution2.Rdata')
 hyperpar['tree_iter'] = 30; hyperpar['max_depth'] = 15
 n_rounds = length(InputGraphs)
 modelpar['tausq'] = (3/(2*sqrt(length(InputGraphs))))^2
