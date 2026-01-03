@@ -13,6 +13,8 @@ hyperpar = c("n_rounds" = n_rounds,
              "num_ost" = num_ost,
              "n_bin"=n_bin)
 
+# load('/Users/shurenhe/Downloads/GSBart_rebuttal/Ushape/Ushapesim.Rdata')
+
 n_train = 800; n_test = 200; p = 5
 sim_Ushape = genUshape_fG(n_train, n_test, p = p, hyperpar, seed=1234)
 sim_Ushape[['graphs_weight']] = c(rep((1-min(5/7, 0.85))/7, 7), rep(min(5/7, 0.85)/5, 5))
@@ -20,7 +22,6 @@ sim_Ushape$train_X = NULL; sim_Ushape$test_X = NULL
 
 ## Generate Friedman Example
 set.seed (1234)
-sigma <- 1
 n <- 500
 p = 5
 f <- function(x) {
@@ -55,8 +56,6 @@ sim_Torus = sim
 sim_Torus$Graphs = Graphs
 sim_Torus[['graphs_weight']] = c(rep((1-min(6/8, 0.85))/7, 7), rep(min(6/8, 0.85)/6, 6))
 sim_Torus$train_X = NULL; sim_Torus$test_X = NULL
-
-
 
 save(sim_Ushape, sim_Friedman, sim_Torus, file = "data/sim_input.RData", compress = "bzip2")
 

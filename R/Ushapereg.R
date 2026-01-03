@@ -48,6 +48,8 @@ sim = genUshape_fG(n_train, n_test, p = p, hyperpar, seed=1234)
 # save(sim, file = "~/Downloads/code/test_code/Ushapesim.Rdata")
 
 load("~/Downloads/code/test_code/Ushapesim.Rdata")
+sim_Ushape = sim
+sim_Ushape$train_X = NULL; sim_Ushape$test_X = NULL
 
 n_train = length(sim$f_true); n_test = length(sim$f_ho_true)
 

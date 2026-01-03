@@ -254,8 +254,7 @@ genUshape_fG = function(n, n_ho, p, hyperpar, seed=1234, nthreads = 1) {
     coords_ho = coords_ho,
     Graphs = Graphs,
     f_true = f_true,
-    f_ho_true = f_ho_true,
-    sf_bnd = sf_bnd
+    f_ho_true = f_ho_true
   ))
   
 }
