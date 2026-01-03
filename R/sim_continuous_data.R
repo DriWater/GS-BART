@@ -5,11 +5,6 @@ library(purrr)
 
 load("data/sim_input.RData")
 
-load("data/KingHouse.Rdata")
-
-save(X, X_ho, coords, coords_ho, Graphs, graphs_weight, y.test.unstandardized,
-     y.train.unstandardized, file = 'data/KingHouse.Rdata', compress = 'xz')
-
 repetitions = 50
 
 ## Ushape Simulation
@@ -176,14 +171,14 @@ Torus_continuous_summary
 
 # Torus Simulation
 Friedman_continuous_list = vector(50, mode="list")
-sigma = 1
-n = nrow(sim_Friedman$X); n_ho = nrow(sim_Friedman$X_ho)
+sigma = 1; n = nrow(sim_Friedman$X); n_ho = nrow(sim_Friedman$X_ho)
 
 for(repetition in 1:repetitions){
   set.seed(1234+repetition)
   Y0 = sim_Friedman$f_true + rnorm(n, 0, sigma)
   Y0_ho = sim_Friedman$f_ho_true + rnorm(n_ho, 0, sigma)
-  GSBART_Fit = GSBart::gsbart(Y0, sim_Friedman$Graphs, 200, 15, 200, sim_Friedman$graphs_weight, nthreads = 7, verbose = T, seed = 1234)
+  GSBART_Fit = GSBart::gsbart(Y0, sim_Friedman$Graphs, 200, 15, 200, sim_Friedman$graphs_weight,
+                              nthreads = 1, verbose = T, seed = 1234)
   GSBart_MSPE = mean((Y0_ho - GSBART_Fit$yhat.test.mean)^2)
   GSBart_MAPE = mean(abs(Y0_ho - GSBART_Fit$yhat.test.mean))
   GSBart.upper.lvl = NULL
@@ -223,5 +218,5 @@ Friedman_continuous_summary = Friedman_continuous_list %>%
   ) %>%  
   arrange(match(models, c("GSBART"), desc(models)))
 
-save(Ushape_continuous_summary, Torus_continuous_summary, 
-     Friedman_continuous_summary, p1, p2, p3, file = 'data/sim_continuous.RData', compress = 'xz')
+save(Ushape_continuous_summary, Torus_continuous_summary, Friedman_continuous_summary, 
+     p1, p2, p3, file = 'data/sim_continuous.RData', compress = 'xz')

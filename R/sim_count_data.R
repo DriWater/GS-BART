@@ -1,0 +1,89 @@
+rm(list=ls())
+library(bayestestR)
+library(G2SBart)
+library(purrr)
+
+load("data/sim_input.RData")
+
+repetitions = 50
+
+## Ushape Simulation
+Ushape_count_list = vector(50, mode="list")
+n = nrow(sim_Ushape$X); n_ho = nrow(sim_Ushape$X_ho)
+
+for(repetition in 1:repetitions){
+  set.seed(1234+repetition)
+  Y0 = exp((sim_Ushape$f_true+7)/3)
+  Y0_ho = exp((sim_Ushape$f_ho_true+7)/3)
+  Y <- rpois(n, Y0)
+  GSBart_Time = Sys.time() 
+  GSBART_Fit <- g2sbart(Y, sim_Ushape$Graphs, 200, 15, 200, family = 'poisson', nthreads = 1, sparse = F, verbose = F, seed = 1234)
+  GSBart_Time = difftime(Sys.time(), GSBart_Time, units = "secs")
+  GSBart_RMSPE = sqrt(mean((Y0_ho - exp(colMeans(GSBART_Fit$phi.test)))^2))
+  GSBart_MSPE = mean((Y0_ho - exp(colMeans(GSBres$phi.test)))^2)
+  Ushape_count_list[[repetition]] = data.frame(
+    models = c("GSBart"),
+    RMSPE = c(GSBart_RMSPE),
+    MSPE = c(GSBart_MSPE),
+    times = c(GSBart_Time),
+    sim = c(repetition)
+  )
+}
+
+Ushape_count_summary = Ushape_count_list %>%
+  list_rbind() %>%
+  na.omit() %>%
+  group_by(models) %>%
+  summarise(
+    across(c(RMSPE, MSPE),
+           list(mean = mean, sd = sd),
+           .names = "{.col}_{.fn}"),
+    across(c(times), mean,
+           .names = "{.col}_mean"),
+    .groups = "drop"
+  ) %>%  
+  arrange(match(models, c("GSBART"), desc(models)))
+Ushape_count_summary
+
+
+# Torus Simulation
+Torus_count_list = vector(50, mode="list")
+sigma = 0.1
+n = nrow(sim_Torus$X); n_ho = nrow(sim_Torus$X_ho)
+
+for(repetition in 1:repetitions){
+  set.seed(1234+repetition)
+  Y0 <- exp((sim_Torus$f_true + 17)/8)
+  Y0_ho <- exp((sim_Torus$f_ho_true + 17)/8)
+  Y <- rpois(n, Y0)
+  Y_ho <- rpois(n_ho, Y0_ho)
+  Y <- rpois(800, Y0)
+  GSBart_Time = Sys.time() 
+  GSBART_Fit <- g2sbart(Y, sim_Torus$Graphs, 200, 15, 200, family = 'poisson', 
+                        nthreads = 1, sparse = F, verbose = F, seed = 1234)
+  GSBart_Time = difftime(Sys.time(), GSBart_Time, units = "secs")
+  GSBart_RMSPE = sqrt(mean((Y0_ho - exp(colMeans(GSBART_Fit$phi.test)))^2))
+  GSBart_MSPE = mean((Y0_ho - exp(colMeans(GSBres$phi.test)))^2)
+  Torus_count_list[[repetition]] = data.frame(
+    models = c("GSBart"),
+    RMSPE = c(GSBart_RMSPE),
+    MPSE = c(GSBart_MSPE),
+    times = c(GSBart_Time),
+    sim = c(repetition)
+  )
+}
+
+Torus_count_summary = Torus_count_list %>%
+  list_rbind() %>%
+  na.omit() %>%
+  group_by(models) %>%
+  summarise(
+    across(c(RMSPE, MSPE),
+           list(mean = mean, sd = sd),
+           .names = "{.col}_{.fn}"),
+    across(c(times), mean, .names = "{.col}_mean"),
+    .groups = "drop"
+  ) %>%  
+  arrange(match(models, c("GSBART"), desc(models)))
+
+Torus_count_summary
