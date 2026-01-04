@@ -13,11 +13,11 @@ sigma = 0.15
 n = nrow(sim_Ushape$X); n_ho = nrow(sim_Ushape$X_ho)
 
 for(repetition in 1:repetitions){
-  set.seed(1234+repetition)
+  set.seed(1234+3)
   Y0 = sim_Ushape$f_true + rnorm(n, 0, sigma)
   Y0_ho = sim_Ushape$f_ho_true + rnorm(n_ho, 0, sigma)
   GSBART_Fit = GSBart::gsbart(Y0, sim_Ushape$Graphs, 200, 15, 200, sim_Ushape$graphs_weight, 
-                              nthreads = 1, verbose = T, seed = 1234)
+                              nthreads = 1, verbose = F, seed = 1234)
   GSBart_MSPE = mean((Y0_ho - GSBART_Fit$yhat.test.mean)^2)
   GSBart_MAPE = mean(abs(Y0_ho - GSBART_Fit$yhat.test.mean))
   GSBart.upper.lvl = NULL
@@ -128,7 +128,7 @@ for(repetition in 1:repetitions){
   Y0 = sim_Torus$f_true + rnorm(n, 0, sigma)
   Y0_ho = sim_Torus$f_ho_true + rnorm(n_ho, 0, sigma)
   GSBART_Fit = GSBart::gsbart(Y0, sim_Torus$Graphs, 200, 15, 200, sim_Torus$graphs_weight, 
-                              nthreads = 7, verbose = T, seed = 1234)
+                              nthreads = 7, verbose = F, seed = 1234)
   GSBart_MSPE = mean((Y0_ho - GSBART_Fit$yhat.test.mean)^2)
   GSBart_MAPE = mean(abs(Y0_ho - GSBART_Fit$yhat.test.mean))
   GSBart.upper.lvl = NULL
@@ -180,7 +180,7 @@ for(repetition in 1:repetitions){
   Y0 = sim_Friedman$f_true + rnorm(n, 0, sigma)
   Y0_ho = sim_Friedman$f_ho_true + rnorm(n_ho, 0, sigma)
   GSBART_Fit = GSBart::gsbart(Y0, sim_Friedman$Graphs, 200, 15, 200, sim_Friedman$graphs_weight,
-                              nthreads = 1, verbose = T, seed = 1234)
+                              nthreads = 1, verbose = F, seed = 1234)
   GSBart_MSPE = mean((Y0_ho - GSBART_Fit$yhat.test.mean)^2)
   GSBart_MAPE = mean(abs(Y0_ho - GSBART_Fit$yhat.test.mean))
   GSBart.upper.lvl = NULL
