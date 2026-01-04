@@ -64,6 +64,6 @@ USElection_MAPE = mean(abs(USElection_GSB$yhat.test.mean - y.test.unstandardized
 
 real_continuous_res = data.frame(MSPE = c(NYEdu_MSPE, KingHouse_MSPE, USElection_MSPE),
                                  MAPE = c(NYEdu_MAPE, KingHouse_MAPE, USElection_MAPE))
-rownames(real_continuous_res) <- c('NYC Education','KingHouse', 'US Elecation')
+rownames(real_continuous_res) <- c('NYC Education','KingHouse', 'US Election')
 
 save(p4, p5, p6, real_continuous_res, file = 'data/real_continuous_res.RData', compress = 'xz')
