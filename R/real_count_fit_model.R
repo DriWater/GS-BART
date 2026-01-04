@@ -5,10 +5,13 @@ library(G2SBart)
 load("data/USCancer.Rdata")
 USCancer_Time = Sys.time()
 USCancer_Fit <- g2sbart(Y, Graphs, 200, 15, 200, "poisson", graphs_weight, hyperpar, modelpar, offset_train = 5*exp(offset_train), 
-                      offset_test = 5*exp(offset_test), nthreads = 9, verbose = T, seed = 1234)
+                      offset_test = 5*exp(offset_test), nthreads = 1, verbose = T, seed = 1234)
 USCancer_Time = difftime(Sys.time(), USCancer_Time, units = "secs")
 Y_pred_ho <- colMeans(t(t(exp(USCancer_Fit$phi.test))* 5 * exp(offset_test)))
-USCancer_RMSE = sqrt(mean((Y_ho - Y_pred_ho)^2))
+USCancer_RMSPE = sqrt(mean((Y_ho - Y_pred_ho)^2))
 
+real_count_res = data.frame(RMSPE = c(USCancer_RMSPE))
+rownames(real_count_res) <- c('US Cancer')
 
+save(real_count_res, file = 'data/real_count_res.RData', compress = 'xz')
 

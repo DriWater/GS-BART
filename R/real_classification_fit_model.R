@@ -11,5 +11,7 @@ USFlood_Time = difftime(Sys.time(), USFlood_Time, units = "secs")
 Y_ho_pred <- as.numeric(USFlood_Fit$prob.test.mean > 0.5)
 USFlood_ACC = mean(Y_ho==Y_ho_pred)
 
+real_classification_res = data.frame(ACC = c(USFlood_ACC))
+rownames(real_classification_res) <- c('Flood')
 
-
+save(real_classification_res, file = 'data/real_classification_res.RData', compress = 'xz')
