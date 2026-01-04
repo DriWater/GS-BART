@@ -3,7 +3,7 @@ library(bayestestR)
 library(GSBart)
 library(purrr)
 
-load("data/sim_input.RData")
+load("data/sim_input.Rdata")
 
 repetitions = 50
 
@@ -59,7 +59,7 @@ Ushape_continuous_summary = Ushape_continuous_list %>%
 
 Ushape_continuous_summary
 
-load('data/UshapeVis.RData')
+load('data/UshapeVis.Rdata')
 range_all <- range(c(sim$f_ho_true, GSBart_fit$yhat.test.unstandardized))
 range_len = range_all[2] - range_all[1]
 true.range.lower = (range(f_ho_true)[1] - range_all[1])/range_len
@@ -221,4 +221,4 @@ Friedman_continuous_summary = Friedman_continuous_list %>%
   arrange(match(models, c("GSBART"), desc(models)))
 
 save(Ushape_continuous_summary, Torus_continuous_summary, Friedman_continuous_summary, 
-     p1, p2, p3, file = 'data/sim_continuous.RData', compress = 'xz')
+     p1, p2, p3, file = 'data/sim_continuous.Rdata', compress = 'xz')

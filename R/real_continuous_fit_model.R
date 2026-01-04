@@ -66,4 +66,4 @@ real_continuous_res = data.frame(MSPE = c(NYEdu_MSPE, KingHouse_MSPE, USElection
                                  MAPE = c(NYEdu_MAPE, KingHouse_MAPE, USElection_MAPE))
 rownames(real_continuous_res) <- c('NYC Education','KingHouse', 'US Election')
 
-save(p4, p5, p6, real_continuous_res, file = 'data/real_continuous_res.RData', compress = 'xz')
+save(p4, p5, p6, real_continuous_res, file = 'data/real_continuous_res.Rdata', compress = 'xz')

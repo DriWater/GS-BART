@@ -4,7 +4,7 @@ library(G2SBart)
 library(purrr)
 library(caret)
 
-load("data/sim_input.RData")
+load("data/sim_input.Rdata")
 
 repetitions = 50
 
@@ -100,4 +100,4 @@ Torus_class_summary = Torus_class_list %>%
   ) %>%  
   arrange(match(models, c("GSBART"), desc(models)))
 
-save(Ushape_class_summary, Torus_class_summary, file = 'data/sim_class.RData', compress = 'xz')
+save(Ushape_class_summary, Torus_class_summary, file = 'data/sim_class.Rdata', compress = 'xz')

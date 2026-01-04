@@ -3,7 +3,7 @@ library(bayestestR)
 library(G2SBart)
 library(purrr)
 
-load("data/sim_input.RData")
+load("data/sim_input.Rdata")
 
 repetitions = 50
 
@@ -86,4 +86,4 @@ Torus_count_summary = Torus_count_list %>%
   ) %>%  
   arrange(match(models, c("GSBART"), desc(models)))
 
-save(Ushape_count_summary, Torus_count_summary, file = 'data/sim_count.RData', compress = 'xz')
+save(Ushape_count_summary, Torus_count_summary, file = 'data/sim_count.Rdata', compress = 'xz')

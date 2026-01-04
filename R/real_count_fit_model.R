@@ -13,5 +13,5 @@ USCancer_RMSPE = sqrt(mean((Y_ho - Y_pred_ho)^2))
 real_count_res = data.frame(RMSPE = c(USCancer_RMSPE))
 rownames(real_count_res) <- c('US Cancer')
 
-save(real_count_res, file = 'data/real_count_res.RData', compress = 'xz')
+save(real_count_res, file = 'data/real_count_res.Rdata', compress = 'xz')
 

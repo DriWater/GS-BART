@@ -14,4 +14,4 @@ USFlood_ACC = mean(Y_ho==Y_ho_pred)
 real_classification_res = data.frame(ACC = c(USFlood_ACC))
 rownames(real_classification_res) <- c('Flood')
 
-save(real_classification_res, file = 'data/real_classification_res.RData', compress = 'xz')
+save(real_classification_res, file = 'data/real_classification_res.Rdata', compress = 'xz')
