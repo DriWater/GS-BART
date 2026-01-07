@@ -1,15 +1,15 @@
 rm(list=ls())
 library(GSBart)
+library(ggplot2)
 
 # NYC Education
 load("data/NYEducation.Rdata")
 NYEdu_Time=Sys.time()
 NYEdu_GSB = gsbart(y.train.unstandardized, Graphs, 200, 15, 200, graphs_weight = graphs_weight, 
-                   hyperpar = hyperpar, verbose = F, nthreads = 1, seed = 1234) 
+                   verbose = F, nthreads = 1, seed = 1234) 
 NYEdu_Time=difftime(Sys.time(), NYEdu_Time, units = "secs")
 NYEdu_MSPE = mean((NYEdu_GSB$yhat.test.mean - y.test.unstandardized)^2)
 NYEdu_MAPE = mean(abs(NYEdu_GSB$yhat.test.mean - y.test.unstandardized))
-
 
 # King County House
 load("data/KingHouse.Rdata")
@@ -56,14 +56,14 @@ p6 <- ggplot(data = df_new, aes(x = x, y = y, group = group, fill = group, color
 # US Election
 load("data/USelection.Rdata")
 USElection_Time=Sys.time()
-USElection_GSB = gsbart(y.train.unstandardized, Graphs, 200, 15, 200, graphs_weight = graphs_weight, verbose = T, 
-                       nthreads = 1, seed = 1234)
+USElection_GSB = gsbart(y.train.unstandardized, Graphs, 200, 15, 200, graphs_weight = graphs_weight, 
+                        nthreads = 1, seed = 1239)
 USElection_Time=difftime(Sys.time(), USElection_Time, units = "secs")
 USElection_MSPE = mean((USElection_GSB$yhat.test.mean - y.test.unstandardized)^2)
 USElection_MAPE = mean(abs(USElection_GSB$yhat.test.mean - y.test.unstandardized))
 
 real_continuous_res = data.frame(MSPE = c(NYEdu_MSPE, KingHouse_MSPE, USElection_MSPE),
                                  MAPE = c(NYEdu_MAPE, KingHouse_MAPE, USElection_MAPE))
-rownames(real_continuous_res) <- c('NYC Education','KingHouse', 'US Election')
+rownames(real_continuous_res) <- c('NYC Education', 'KingHouse', 'US Election')
 
 save(p4, p5, p6, real_continuous_res, file = 'data/real_continuous_res.Rdata', compress = 'xz')

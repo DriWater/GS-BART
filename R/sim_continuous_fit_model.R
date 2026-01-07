@@ -2,6 +2,7 @@ rm(list=ls())
 library(bayestestR)
 library(GSBart)
 library(purrr)
+library(dplyr)
 
 load("data/sim_input.Rdata")
 
@@ -13,24 +14,26 @@ sigma = 0.15
 n = nrow(sim_Ushape$X); n_ho = nrow(sim_Ushape$X_ho)
 
 for(repetition in 1:repetitions){
-  set.seed(1234+3)
+  set.seed(1234+repetition)
   Y0 = sim_Ushape$f_true + rnorm(n, 0, sigma)
   Y0_ho = sim_Ushape$f_ho_true + rnorm(n_ho, 0, sigma)
+  GSBart_Time = Sys.time() 
   GSBART_Fit = GSBart::gsbart(Y0, sim_Ushape$Graphs, 200, 15, 200, sim_Ushape$graphs_weight, 
-                              nthreads = 1, verbose = F, seed = 1234)
+                              nthreads = 6, verbose = F, seed = 1234)
+  GSBart_Time = difftime(Sys.time(), GSBart_Time, units = "secs")
   GSBart_MSPE = mean((Y0_ho - GSBART_Fit$yhat.test.mean)^2)
   GSBart_MAPE = mean(abs(Y0_ho - GSBART_Fit$yhat.test.mean))
   GSBart.upper.lvl = NULL
   GSBart.lower.lvl = NULL
-  for(i in 1:ncol(GSBres$yhat.test)){
-    tmp <- ci(GSBres$yhat.test[,i], method = "HDI")
+  for(i in 1:ncol(GSBART_Fit$yhat.test)){
+    tmp <- ci(GSBART_Fit$yhat.test[,i], method = "HDI")
     GSBart.upper.lvl <- append(GSBart.upper.lvl, tmp$CI_high)
     GSBart.lower.lvl <- append(GSBart.lower.lvl, tmp$CI_low)
   }
   GSBart_coverage = mean((Y0_ho<GSBart.upper.lvl)&(Y0_ho>GSBart.lower.lvl))
   GSBart_HDI_len = mean(GSBart.upper.lvl - GSBart.lower.lvl)
-  GSBart_poster_sd = mean(apply(GSBres$yhat.test, 2, sd))
-  Ushape_continuous_list[[i]] = data.frame(
+  GSBart_poster_sd = mean(apply(GSBART_Fit$yhat.test, 2, sd))
+  Ushape_continuous_list[[repetition]] = data.frame(
     models = c("GSBART"),
     MSPE = c(GSBart_MSPE),
     MAPE = c(GSBart_MAPE),
@@ -127,21 +130,23 @@ for(repetition in 1:repetitions){
   set.seed(1234+repetition)
   Y0 = sim_Torus$f_true + rnorm(n, 0, sigma)
   Y0_ho = sim_Torus$f_ho_true + rnorm(n_ho, 0, sigma)
+  GSBart_Time = Sys.time() 
   GSBART_Fit = GSBart::gsbart(Y0, sim_Torus$Graphs, 200, 15, 200, sim_Torus$graphs_weight, 
                               nthreads = 7, verbose = F, seed = 1234)
+  GSBart_Time = difftime(Sys.time(), GSBart_Time, units = "secs")
   GSBart_MSPE = mean((Y0_ho - GSBART_Fit$yhat.test.mean)^2)
   GSBart_MAPE = mean(abs(Y0_ho - GSBART_Fit$yhat.test.mean))
   GSBart.upper.lvl = NULL
   GSBart.lower.lvl = NULL
-  for(i in 1:ncol(GSBres$yhat.test)){
-    tmp <- ci(GSBres$yhat.test[,i], method = "HDI")
+  for(i in 1:ncol(GSBART_Fit$yhat.test)){
+    tmp <- ci(GSBART_Fit$yhat.test[,i], method = "HDI")
     GSBart.upper.lvl <- append(GSBart.upper.lvl, tmp$CI_high)
     GSBart.lower.lvl <- append(GSBart.lower.lvl, tmp$CI_low)
   }
   GSBart_coverage = mean((Y0_ho<GSBart.upper.lvl)&(Y0_ho>GSBart.lower.lvl))
   GSBart_HDI_len = mean(GSBart.upper.lvl - GSBart.lower.lvl)
-  GSBart_poster_sd = mean(apply(GSBres$yhat.test, 2, sd))
-  Torus_continuous_list[[i]] = data.frame(
+  GSBart_poster_sd = mean(apply(GSBART_Fit$yhat.test, 2, sd))
+  Torus_continuous_list[[repetition]] = data.frame(
     models = c("GSBART"),
     MSPE = c(GSBart_MSPE),
     MAPE = c(GSBart_MAPE),
@@ -171,7 +176,7 @@ Torus_continuous_summary = Torus_continuous_list %>%
 Torus_continuous_summary
 
 
-# Torus Simulation
+# Friedman Simulation
 Friedman_continuous_list = vector(50, mode="list")
 sigma = 1; n = nrow(sim_Friedman$X); n_ho = nrow(sim_Friedman$X_ho)
 
@@ -179,21 +184,23 @@ for(repetition in 1:repetitions){
   set.seed(1234+repetition)
   Y0 = sim_Friedman$f_true + rnorm(n, 0, sigma)
   Y0_ho = sim_Friedman$f_ho_true + rnorm(n_ho, 0, sigma)
+  GSBart_Time = Sys.time() 
   GSBART_Fit = GSBart::gsbart(Y0, sim_Friedman$Graphs, 200, 15, 200, sim_Friedman$graphs_weight,
-                              nthreads = 1, verbose = F, seed = 1234)
+                              nthreads = 5, verbose = F, seed = 1234)
+  GSBart_Time = difftime(Sys.time(), GSBart_Time, units = "secs")
   GSBart_MSPE = mean((Y0_ho - GSBART_Fit$yhat.test.mean)^2)
   GSBart_MAPE = mean(abs(Y0_ho - GSBART_Fit$yhat.test.mean))
   GSBart.upper.lvl = NULL
   GSBart.lower.lvl = NULL
-  for(i in 1:ncol(GSBres$yhat.test)){
-    tmp <- ci(GSBres$yhat.test[,i], method = "HDI")
+  for(i in 1:ncol(GSBART_Fit$yhat.test)){
+    tmp <- ci(GSBART_Fit$yhat.test[,i], method = "HDI")
     GSBart.upper.lvl <- append(GSBart.upper.lvl, tmp$CI_high)
     GSBart.lower.lvl <- append(GSBart.lower.lvl, tmp$CI_low)
   }
   GSBart_coverage = mean((Y0_ho<GSBart.upper.lvl)&(Y0_ho>GSBart.lower.lvl))
   GSBart_HDI_len = mean(GSBart.upper.lvl - GSBart.lower.lvl)
-  GSBart_poster_sd = mean(apply(GSBres$yhat.test, 2, sd))
-  Friedman_continuous_list[[i]] = data.frame(
+  GSBart_poster_sd = mean(apply(GSBART_Fit$yhat.test, 2, sd))
+  Friedman_continuous_list[[repetition]] = data.frame(
     models = c("GSBART"),
     MSPE = c(GSBart_MSPE),
     MAPE = c(GSBart_MAPE),
@@ -219,6 +226,8 @@ Friedman_continuous_summary = Friedman_continuous_list %>%
     .groups = "drop"
   ) %>%  
   arrange(match(models, c("GSBART"), desc(models)))
+
+Friedman_continuous_summary
 
 save(Ushape_continuous_summary, Torus_continuous_summary, Friedman_continuous_summary, 
      p1, p2, p3, file = 'data/sim_continuous.Rdata', compress = 'xz')
