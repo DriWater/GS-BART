@@ -1,0 +1,15 @@
+bayestestR 0.17.0
+deldir 2.0-4
+doParallel 1.0.17
+doRNG 1.8.6.2
+dplyr 1.1.4
+foreach 1.5.2
+ggplot2 3.5.2
+ggpubr 0.6.1
+igraph 2.1.4
+knitr 1.50
+purrr 1.1.0
+sf 1.0-21
+Rcpp 1.1.0 
+RcppArmadillo 15.0.1-1 
+rmarkdown 2.29 

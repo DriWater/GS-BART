@@ -1,5 +1,4 @@
 rm(list=ls())
-library(bayestestR)
 library(G2SBart)
 library(purrr)
 library(dplyr)
@@ -12,7 +11,7 @@ repetitions = 50
 Ushape_count_list = vector(50, mode="list")
 n = nrow(sim_Ushape$X); n_ho = nrow(sim_Ushape$X_ho)
 
-for(repetition in 1:repetitions){
+for(repetition in seq_len(repetitions)){
   set.seed(1234+repetition)
   Y0 = exp((sim_Ushape$f_true+7)/3)
   Y0_ho = exp((sim_Ushape$f_ho_true+7)/3)
@@ -51,7 +50,7 @@ Ushape_count_summary = Ushape_count_list %>%
 Torus_count_list = vector(50, mode="list")
 n = nrow(sim_Torus$X); n_ho = nrow(sim_Torus$X_ho)
 
-for(repetition in 1:repetitions){
+for(repetition in seq_len(repetitions)){
   set.seed(1234+repetition)
   Y0 <- exp((sim_Torus$f_true + 17)/8)
   Y0_ho <- exp((sim_Torus$f_ho_true + 17)/8)
@@ -84,4 +83,4 @@ Torus_count_summary = Torus_count_list %>%
   ) %>%  
   arrange(match(models, c("GSBART"), desc(models)))
 
-save(Ushape_count_summary, Torus_count_summary, file = 'data/sim_count.Rdata', compress = 'xz')
+save(Ushape_count_summary, Torus_count_summary, file = 'data/sim_count_res.Rdata', compress = 'xz')
