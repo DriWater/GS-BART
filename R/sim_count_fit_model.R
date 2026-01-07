@@ -2,6 +2,7 @@ rm(list=ls())
 library(bayestestR)
 library(G2SBart)
 library(purrr)
+library(dplyr)
 
 load("data/sim_input.Rdata")
 
