@@ -25,7 +25,7 @@ for(repetition in 1:repetitions){
   message("Fitting GSBART")
   MGSB_Time = Sys.time()
   MGSB_Fit = G2SBart::mgsbart2(multinom_resp, sim_Ushape$Graphs, 200, 15, 200, 
-                               sim_Ushape$graphs_weight, seed = 1234)
+                               nthreads = 5, sim_Ushape$graphs_weight, seed = 1234)
   MGSB_Time = Sys.time() - MGSB_Time
   MGSB_y_test = MGSB_Fit$yhat.test
   MGSB_ACC = mean(MGSB_y_test == multinom_resp_test)
@@ -71,8 +71,8 @@ for(repetition in 1:repetitions){
   K = length(unique(multinom_resp))
   message("Fitting GSBART")
   MGSB_Time = Sys.time()
-  MGSB_Fit = G2SBart::mgsbart2(multinom_resp, sim_Torus$Graphs, 200, 15, 200, 
-                               sim_Torus$graphs_weight, seed = 1234)
+  MGSB_Fit = G2SBart::mgsbart2(multinom_resp, sim_Torus$Graphs, 200, 15, 200, sim_Torus$graphs_weight,
+                               nthreads = 5,  seed = 1234)
   MGSB_Time = Sys.time() - MGSB_Time
   MGSB_y_test = MGSB_Fit$yhat.test
   MGSB_ACC = mean(MGSB_y_test == multinom_resp_test)

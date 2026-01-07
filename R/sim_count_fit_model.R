@@ -18,11 +18,11 @@ for(repetition in 1:repetitions){
   Y0_ho = exp((sim_Ushape$f_ho_true+7)/3)
   Y <- rpois(n, Y0)
   GSBart_Time = Sys.time() 
-  GSBART_Fit <- g2sbart(Y, sim_Ushape$Graphs, 200, 15, 200, sim_Ushape$graphs_weight, 
+  GSBART_Fit <- g2sbart(Y, sim_Ushape$Graphs, 35, 15, 35, sim_Ushape$graphs_weight, 
                         family = 'poisson', nthreads = 6, sparse = F, verbose = F, seed = 1234)
   GSBart_Time = difftime(Sys.time(), GSBart_Time, units = "secs")
   GSBart_RMSPE = sqrt(mean((Y0_ho - exp(colMeans(GSBART_Fit$phi.test)))^2))
-  GSBart_MSPE = mean((Y0_ho - exp(colMeans(GSBres$phi.test)))^2)
+  GSBart_MSPE = mean((Y0_ho - exp(colMeans(GSBART_Fit$phi.test)))^2)
   Ushape_count_list[[repetition]] = data.frame(
     models = c("GSBART"),
     RMSPE = c(GSBart_RMSPE),
@@ -49,7 +49,6 @@ Ushape_count_summary = Ushape_count_list %>%
 
 # Torus Simulation
 Torus_count_list = vector(50, mode="list")
-sigma = 0.1
 n = nrow(sim_Torus$X); n_ho = nrow(sim_Torus$X_ho)
 
 for(repetition in 1:repetitions){
@@ -58,15 +57,15 @@ for(repetition in 1:repetitions){
   Y0_ho <- exp((sim_Torus$f_ho_true + 17)/8)
   Y <- rpois(n, Y0)
   GSBart_Time = Sys.time() 
-  GSBART_Fit <- g2sbart(Y, sim_Torus$Graphs, 200, 15, 200, sim_Torus$graphs_weight,
+  GSBART_Fit <- g2sbart(Y, sim_Torus$Graphs, 35, 15, 35, sim_Torus$graphs_weight,
                         family = 'poisson', nthreads = 7, sparse = F, verbose = F, seed = 1234)
   GSBart_Time = difftime(Sys.time(), GSBart_Time, units = "secs")
   GSBart_RMSPE = sqrt(mean((Y0_ho - exp(colMeans(GSBART_Fit$phi.test)))^2))
-  GSBart_MSPE = mean((Y0_ho - exp(colMeans(GSBres$phi.test)))^2)
+  GSBart_MSPE = mean((Y0_ho - exp(colMeans(GSBART_Fit$phi.test)))^2)
   Torus_count_list[[repetition]] = data.frame(
     models = c("GSBART"),
     RMSPE = c(GSBart_RMSPE),
-    MPSE = c(GSBart_MSPE),
+    MSPE = c(GSBart_MSPE),
     times = c(GSBart_Time),
     sim = c(repetition)
   )
