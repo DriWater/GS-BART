@@ -1,4 +1,5 @@
 bayestestR 0.17.0
+caret 7.0-1 
 deldir 2.0-4
 doParallel 1.0.17
 doRNG 1.8.6.2
