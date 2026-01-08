@@ -10,7 +10,7 @@ x2sfpoint=function(x){
   sf::st_as_sf(data.frame(x=unname(as.data.frame(x)),y=rep(0,length(x))),coords=c('x','y'))
 }
 
-genVMesh <- function(sf_bnd, coords_ref = NULL, n_ref = 100, graph = TRUE, max_retry = 10, ...) {
+genVMesh <- function(sf_bnd, coords_ref = NULL, n_ref = 100, graph = TRUE, max_retry = 100, ...) {
   
   attempt <- 1
   sf_mesh <- NULL

@@ -7,7 +7,7 @@ load("data/sim_input.Rdata")
 
 repetitions = 50
 
-## Ushape Simulation
+## U-SHAPE Simulation
 Ushape_count_list = vector(50, mode="list")
 n = nrow(sim_Ushape$X); n_ho = nrow(sim_Ushape$X_ho)
 
