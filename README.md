@@ -14,12 +14,12 @@ install.packages('R packages/G2SBart_0.0.1.tar.gz', type = "source", repo = NULL
 This step is optional and only required if you want to re-run GS-BART model fitting and prediction.
 
 **Step 3** (Optional): Modify the options in Line 19-25 of `reproduce.Rmd` accordingly. By default, key figures and tables are reproduced from pre-computed model outputs in `data/`. To re-generate model outputs, make the following change(s):
-* To re-run GS-BART model in continuous simulation data, set `sim_continuous_fit = TRUE`.
-* To re-run GS-BART model in count simulation data, set `sim_count_fit = TRUE`.
+* To re-run GS-BART model in continuous-response simulation data, set `sim_continuous_fit = TRUE`.
+* To re-run GS-BART model in count-response simulation data, set `sim_count_fit = TRUE`.
 * To re-run GS-BART model in classification simulation data, set `sim_classification_fit = TRUE`.
-* To re-run GS-BART model in continuous real data, set `real_continuous_fit = TRUE`.
-* To re-run GS-BART model in count real data, set `real_count_fit = TRUE`.
-* To re-run GS-BART model in classification real data, set `real_classification_fit = TRUE`.
+* To re-run GS-BART model in continuous-response real data, set `real_continuous_fit = TRUE`.
+* To re-run GS-BART model in count-response real data, set `real_count_fit = TRUE`.
+* To re-run GS-BART model in classification response real data, set `real_classification_fit = TRUE`.
 
 **Step 4**: Run the workflow in `reproduce.Rmd` by compiling the R Markdown file. For example, this can be done by running the following command in your terminal:
 ```

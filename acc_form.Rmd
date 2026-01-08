@@ -232,9 +232,9 @@ The R code in `R/` is organized as follows:
 
 -   Code for real data analysis:
 
-    -   `real_continuous_fit_model.R`: Implements the GS-BART model for continuous real-world data.
+    -   `real_continuous_fit_model.R`: Implements the GS-BART model for continuous-response real-world data.
 
-    -   `real_count_fit_model.R`: Implements the GS-BART model for count real-world data.
+    -   `real_count_fit_model.R`: Implements the GS-BART model for count-response real-world data.
 
     -   `real_classification_fit_model.R`: Implements the GS-BART model for classification real-world data.
 
@@ -328,15 +328,15 @@ This step is optional and only required if you want to re-run GS-BART model fitt
 By default, key figures and tables are reproduced from pre-computed model outputs in `data/`.
 To re-generate model outputs, make the following change(s):
 
--   To re-run GS-BART model in continuous simulation data, set `sim_continuous_fit = TRUE`.
+-   To re-run GS-BART model in continuous-response simulation data, set `sim_continuous_fit = TRUE`.
 
--   To re-run GS-BART model in count simulation data, set `sim_count_fit = TRUE`.
+-   To re-run GS-BART model in count-response simulation data, set `sim_count_fit = TRUE`.
 
 -   To re-run GS-BART model in classification simulation data, set `sim_classification_fit = TRUE`.
 
--   To re-run GS-BART model in continuous real data, set `real_continuous_fit = TRUE`.
+-   To re-run GS-BART model in continuous-response real data, set `real_continuous_fit = TRUE`.
 
--   To re-run GS-BART model in count real data, set `real_count_fit = TRUE`.
+-   To re-run GS-BART model in count-response real data, set `real_count_fit = TRUE`.
 
 -   To re-run GS-BART model in classification real data, set `real_classification_fit = TRUE`.
 
