@@ -19,7 +19,7 @@ This step is optional and only required if you want to re-run GS-BART model fitt
 * To re-run GS-BART model in classification simulation data, set `sim_classification_fit = TRUE`.
 * To re-run GS-BART model in continuous-response real data, set `real_continuous_fit = TRUE`.
 * To re-run GS-BART model in count-response real data, set `real_count_fit = TRUE`.
-* To re-run GS-BART model in classification response real data, set `real_classification_fit = TRUE`.
+* To re-run GS-BART model in classification real data, set `real_classification_fit = TRUE`.
 
 **Step 4**: Run the workflow in `reproduce.Rmd` by compiling the R Markdown file. For example, this can be done by running the following command in your terminal:
 ```

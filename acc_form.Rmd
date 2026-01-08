@@ -53,7 +53,7 @@ Provide a short (< 100 words), high-level description of the data
 -->
 ```
 
-We consider both simulated and real-world data sets.
+We consider both simulation and real data sets.
 The simulation studies include continuous, count, and classification responses generated on 2-D U-shaped and 3-D torus domains, as well as Euclidean settings based on the Friedman function involving only unstructured features.
 The real data analyses involve spatial and network-structured data sets with diverse response types, including income, housing prices, voting behavior, cancer incidence counts, and binary indicators of air quality and flooding, using geographic coordinates or county adjacency graphs as structured features alongside numerical covariates.
 
@@ -130,7 +130,7 @@ OPTIONAL: Provide any additional details that would be helpful in understanding 
 ## Abstract
 
 The model implementation and data analysis in the paper were done in R and C++.
-The `R/` folder provides code for 1) demonstrating the generation of GS-BART input data under different data settings ,2) fitting GS-BART to simulated and real-world data using Informed Importance Tempering (IIT) method, 3) Bayesian predictive inference of GS-BART, and 4) reproducing key figures and tables in the paper.
+The `R/` folder provides code for 1) demonstrating the generation of GS-BART input data under different data settings ,2) fitting GS-BART to simulation and real data using Informed Importance Tempering (IIT) method, 3) Bayesian predictive inference of GS-BART, and 4) reproducing key figures and tables in the paper.
 
 ```{=html}
 <!--
@@ -232,11 +232,11 @@ The R code in `R/` is organized as follows:
 
 -   Code for real data analysis:
 
-    -   `real_continuous_fit_model.R`: Implements the GS-BART model for continuous-response real-world data.
+    -   `real_continuous_fit_model.R`: Implements the GS-BART model for continuous-response real data.
 
-    -   `real_count_fit_model.R`: Implements the GS-BART model for count-response real-world data.
+    -   `real_count_fit_model.R`: Implements the GS-BART model for count-response real data.
 
-    -   `real_classification_fit_model.R`: Implements the GS-BART model for classification real-world data.
+    -   `real_classification_fit_model.R`: Implements the GS-BART model for classification real data.
 
     -   `GSBART_real_results.R`: Reproduces the key figures and tables from the real data analysis.
 
