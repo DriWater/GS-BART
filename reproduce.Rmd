@@ -16,12 +16,12 @@ By default, this document generates figures and tables from pre-computed results
 
 ```{r options, echo = TRUE}
 # NOTE: Re-running models can take several hours.
-sim_continuous_fit = FALSE # whether to re-run GS-BART model for continuous simulation data
-sim_count_fit = FALSE # whether to re-run GS-BART model for count simulation data 
+sim_continuous_fit = FALSE # whether to re-run GS-BART model for continuous-response simulation data
+sim_count_fit = FALSE # whether to re-run GS-BART model for count-response simulation data 
 sim_classification_fit = FALSE # whether to re-run GS-BART model for classification simulation data 
 
-real_continuous_fit = FALSE # whether to re-run GS-BART model for continuous real data
-real_count_fit = FALSE # whether to re-run GS-BART model for count real data 
+real_continuous_fit = FALSE # whether to re-run GS-BART model for continuous-response real data
+real_count_fit = FALSE # whether to re-run GS-BART model for count-response real data 
 real_classification_fit = FALSE # whether to re-run GS-BART model for classification real data 
 ```
 
@@ -38,7 +38,7 @@ excluded_vars = c(
 
 ```{r sim_continuous_fit}
 if (sim_continuous_fit) {
-  message("Re-running GS-BART model for count simulation data...")
+  message("Re-running GS-BART model for continuous-response simulation data...")
 
   rm(list = setdiff(ls(), excluded_vars))
   source("R/sim_continuous_fit_model.R")
@@ -50,7 +50,7 @@ if (sim_continuous_fit) {
 
 ```{r sim_count_fit}
 if (sim_count_fit) {
-  message("Re-running GS-BART model for count simulation data...")
+  message("Re-running GS-BART model for count-response simulation data...")
 
   rm(list = setdiff(ls(), excluded_vars))
   source("R/sim_count_fit_model.R")
@@ -122,7 +122,7 @@ This section reproduces main results in the precipitation real data analysis.
 
 ```{r real_continuous_fit}
 if (real_continuous_fit) {
-  message("Re-running GS-BART model for continuous real data...")
+  message("Re-running GS-BART model for continuous-response real data...")
 
   rm(list = setdiff(ls(), excluded_vars))
   source("R/real_continuous_fit_model.R")
@@ -134,7 +134,7 @@ if (real_continuous_fit) {
 
 ```{r real_count_fit}
 if (real_count_fit) {
-  message("Re-running GS-BART model for count real data...")
+  message("Re-running GS-BART model for count-response real data...")
 
   rm(list = setdiff(ls(), excluded_vars))
   source("R/real_count_fit_model.R")
