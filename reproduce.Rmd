@@ -12,7 +12,7 @@ library(ggplot2)
 
 This document reproduces main simulation and real data application (Section 5) results in "GS-BART: Bayesian Additive Regression Trees with Graph-split Decision Rules for Generalized Spatial Nonparametric Regressions"
 
-By default, this document generates figures and tables from pre-computed results to save computation time. To re-run model fitting and prediction of GS-BART, change the following options accordingly, and then re-compile this R Markdown document. Please note that it can take serveral hours to re-run GS-BART.
+By default, this document generates figures and tables from pre-computed results to save computation time. To re-run model fitting and prediction of GS-BART, change the following options accordingly, and then re-compile this R Markdown document. Please note that it can take several hours to re-run GS-BART.
 
 ```{r options, echo = TRUE}
 # NOTE: Re-running models can take several hours.

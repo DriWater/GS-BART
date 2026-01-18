@@ -67,9 +67,9 @@ Otherwise, see the *Non-publicly available data* section, below.
 
 ### Publicly available data
 
--   [ ] Data are available online at:
+-   [x] Data are available online at: https://anonymous.4open.science/r/GS-BART-60D2 (The repository is hosted on an anonymous review platform and will be made publicly available upon publication.)
 
--   [x] Data are available as part of the paper’s supplementary material.
+-   [ ] Data are available as part of the paper’s supplementary material.
 
 -   [ ] Data are publicly available by request, following the process described here:
 
@@ -281,8 +281,8 @@ Check all that apply, and in the case of a Git repository include unique identif
 -->
 ```
 
--   [x] As part of the paper’s supplementary material.
--   [ ] In this Git repository:
+-   [ ] As part of the paper’s supplementary material.
+-   [x] In this Git repository: https://anonymous.4open.science/r/GS-BART-60D2 (The repository is hosted on an anonymous review platform and will be made publicly available upon publication.)
 -   [ ] Other (please specify):
 
 ```{=html}
